@@ -4,7 +4,8 @@
  */
 
 #ifdef linux
-
+struct winsize;
+struct termio;
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -14,7 +15,7 @@
 
 #define termios asmtermios
 
-#include <asm/termios.h>
+// #include <asm/termios.h>
 
 #undef termios
 
@@ -24,8 +25,23 @@
 #include <stropts.h>
 #include <endian.h>
 #include <stdint.h>
+#include <sys/ioctl.h>
 
 #include "rt/rt_serial.h"
+
+#define    BOTHER 0010000
+#define TCGETS2		_IOR('T', 0x2A, struct termios2)
+
+struct termios2 {
+	tcflag_t c_iflag;		/* input mode flags */
+	tcflag_t c_oflag;		/* output mode flags */
+	tcflag_t c_cflag;		/* control mode flags */
+	tcflag_t c_lflag;		/* local mode flags */
+	cc_t c_line;			/* line discipline */
+	cc_t c_cc[19];		/* control characters */
+	speed_t c_ispeed;		/* input speed */
+	speed_t c_ospeed;		/* output speed */
+};
 
 void init_serial_for_sbus(int fd, int baud) {
   printf("\t[RT SERIAL] Configuring serial device...\n");
@@ -68,7 +84,7 @@ tty.c_cflag |= CS8;
   // tty.c_cflag &= ~CRTSCTS;
   // cfmakeraw(&tty);
 
-  ioctl(fd, TCSETS2, &tty);
+  ioctl(fd, TCGETS2, &tty);
 }
 
 /**

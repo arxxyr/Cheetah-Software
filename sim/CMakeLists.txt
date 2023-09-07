@@ -3,9 +3,13 @@ project(sim)
 
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+set(CMAKE_PREFIX_PATH /opt/Qt/5.15.2/gcc_64)
+set(QT5Core_DIR /opt/Qt/5.15.2/gcc_64/lib/cmake/QT5Core)
+set(QT5Widgets_DIR /opt/Qt/5.15.2/gcc_64/lib/cmake/QT5Widgets)
+set(QT5Gamepad_DIR /opt/Qt/5.15.2/gcc_64/lib/cmake/QT5Gamepad)
 
-execute_process(COMMAND ${CMAKE_SOURCE_DIR}/scripts/find_qt_path.sh OUTPUT_VARIABLE CMAKE_PREFIX_PATH_1)
-SET(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH_1})
+# execute_process(COMMAND ${CMAKE_SOURCE_DIR}/scripts/find_qt_path.sh OUTPUT_VARIABLE CMAKE_PREFIX_PATH_1)
+# SET(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH_1})
 # message("CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
 
 if(POLICY CMP0071)
