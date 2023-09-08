@@ -4,8 +4,7 @@
  */
 
 #ifdef linux
-struct winsize;
-struct termio;
+
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -29,7 +28,7 @@ struct termio;
 
 #include "rt/rt_serial.h"
 
-#define    BOTHER 0010000
+#define BOTHER		0010000
 #define TCGETS2		_IOR('T', 0x2A, struct termios2)
 
 struct termios2 {
